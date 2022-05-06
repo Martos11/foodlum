@@ -1,0 +1,38 @@
+<!-- location area -->
+<div class="location pt-5 pb-5" id ="contact">
+    <div class="container">
+        <h2 class="text-center mb-4">Contact us</h2>
+
+      <div class="row">
+            <div class="col-12 col-md-6">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126845.96885288632!2d3.293487888178745!3d6
+                    .529701169070186!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b9228fa2a3999%3A0xd7a8324bddbba1f0!2sIkeja!5e0!3m2!1sen!2sng!4v1644324796977!5m2!1sen!2sng"
+                    width="500" height="450" style="border:0;" allowfullscreen="" loading="lazy">
+                </iframe>
+            </div>
+            <div class="col-12 col-md-6">
+                <form action = "{% url 'contact' %}" method = "POST" class = "contact-form"> 
+                {% csrf_token %}
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Full Name:</label>
+                        <input type="text" class="form-control" name = "name" id="exampleFormControlInput1" placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Phone Number:</label>
+                        <input type="text" class="form-control" name = "phone" id="exampleFormControlInput1" placeholder="Your Phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Subject:</label>
+                        <input type="text" class="form-control" name = "subject" id="exampleFormControlInput1" placeholder="subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Message:</label>
+                        <textarea class="form-control" name = "message" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary text-center">Send</button>
+                </form>
+            </div>
+      </div>
+    </div>
+</div>
+<!-- location area done -->

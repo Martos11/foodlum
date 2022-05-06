@@ -1,0 +1,92 @@
+{% load sample_tags %}
+{% load static %}
+<!-- header section  -->
+<nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand text-white" href="#"><img src="{% static '' %}img/new1.jpg" alt=""></a> 
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About Us</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Varieties
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item text-warning" href="{% url 'varieties' %}">Varieties Here</a>
+            {% if varieties %}
+              {% for item in varieties %}
+                <a class="dropdown-item text-warning" href="{% url 'variety' item.id item.slug %}">{{item.name|title}}</a>
+              {% endfor %}
+            {% else %}
+            {% endif %}
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% intralink 'index' 'contact' %}" tabindex="-1" aria-disabled="true">Contact Us</a> 
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="" tabindex="-1" aria-disabled="true">Welcome
+            {% if user.profile.first_name %}
+                {{user.profile.first_name|title}}
+            {% else %}
+                {{user.username}}
+            {% endif %}
+
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'profile' %}" tabindex="-1" aria-disabled="true">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logoutfunc' %}" tabindex="-1" aria-disabled="true">Logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'cart' %}" tabindex="-1" aria-disabled="true">My Cart
+            {% if cartcount > 0 %}
+            <span class="badge badge-pill badge-dark">{{cartcount}}</span>
+            {% else %}
+            <span class="badge badge-pill badge-dark">0</span>
+            {% endif %}
+          </a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'loginform' %}" tabindex="-1" aria-disabled="true">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'register' %}" tabindex="-1" aria-disabled="true">Register</a>
+        </li>
+        {% endif %}
+        
+      </ul>
+      <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'searched'  %}"> 
+        {% csrf_token %}
+        <input class="form-control mr-sm-2" name="itemsearch" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+</nav>
+
+{% if messages %}
+{% for item in messages %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  {{item}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+  {% comment %} <div class="alert alert-warning" role="alert">
+    {{item}}
+  </div> {% endcomment %}
+{% endfor %}
+{% endif %}
+<!-- header section done  -->

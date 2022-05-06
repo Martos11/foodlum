@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block header %}{% include 'header.html' %}{% endblock header %}
+
+{% block content %}
+<section>
+    <div style="height: 50vh;" class="bg-success mb-5 container">
+        <h1 class="m-5 p-5 text-center">Dear {{user.first_name}}, Thanks for shopping with us at foodlum Kitchen</h1>
+        <!-- <h1 class=" text-center">Do have a great day</h1> -->
+    </div>    
+</section>
+{% endblock content %}
+
+
+{% block footer %}{% include 'footer.html' %}{% endblock footer %}

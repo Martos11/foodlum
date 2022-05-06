@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load mathfilters %}
+
+
+{% block header %}{% include 'header.html' %}{% endblock header %}
+
+{% block content %}
+
+<div class="container-fluid checkout">
+    <h3 class="pb-3 pl-5">Billing Address</h3>
+    <div class="container">
+      <div class="row">
+         <div class="col-md-7 check-form"> 
+                <form action="{% url 'placeorder'%}" method="POST" class="checkout-form">
+                {% csrf_token %}
+                    <div class="form-row">
+                        <div class="col">
+                                <label for="exampleFormControlInput1" id="label">First Name:</label>
+                                <input type="text" class="form-control" value ='{{profile.first_name}}' placeholder="First name">
+                        </div>
+                        <div class="col">
+                                <label for="exampleFormControlInput1" id="label">Last Name:</label>
+                                <input type="text" class="form-control" value ='{{profile.last_name}}' placeholder="Last name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1" id="label">Username:</label>
+                        <input type="username" class="form-control" value = '{{profile.user.username}}' id="exampleFormControlInput1">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1" id="label">Email:</label>
+                        <input type="username" name = "email" class="form-control" value ='{{profile.user.email}}' id="exampleFormControlInput1" >
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1" id="label">Phone No:</label>
+                        <input type="username" name = "phone" class="form-control" value ='{{profile.user.phone}}' id="exampleFormControlInput1" >
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1" id="label">Address:</label>
+                        <input type="username" name="address" class="form-control" value='{{profile.user.address}}' id="exampleFormControlInput1">
+                        <input type="hidden" class="form-control" name = 'get_total' value="{{total}}" id="exampleFormControlInput1">
+                        {% comment %} <input type="hidden" class="form-control" name = 'get_orderno' value="{{orderno}}" id="exampleFormControlInput1"> {% endcomment %}
+                    </div>
+                    <div class="form-row">
+                    <div class="form-group col-md-4">
+                            <label for="inputState">Country</label>
+                            <select id="inputState" class="form-control">
+                            <option selected>Nigeria</option>
+                            <option>Ghana</option>
+                            <option>Europe</option>
+                            <option>Australia</option>
+                            <option>Germany</option>
+                            <option>America</option>
+                            <option>Dubai</option>
+                            </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputState">State</label>
+                        <input type="username" name="state" class="form-control" value='{{profile.state}}' id="exampleFormControlInput1">
+                        {% comment %} <select id="inputState" class="form-control">
+                        <option selected>Lagos</option>
+                        <option>Ogun</option>
+                        <option>Abeokuta</option>
+                        <option>Ondo</option>
+                        <option>Oyo</option>
+                        <option>Osun</option>
+                        <option>Akwa Ibom</option>
+                        <option>Benue</option>
+                        <option>Port harcourt</option>
+                        <option>Akwa Ibom</option>
+                        </select> {% endcomment %}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputZip">Zip</label>
+                        <input type="text" class="form-control" id="inputZip">
+                    </div>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="gridCheck1">
+                        <label class="form-check-label" for="gridCheck1">
+                            Shipping address is the same as my billing address
+                        </label>
+                    </div>
+                    {% comment %} <hr>
+                    <h5>Payment</h5> {% endcomment %}
+                    {% comment %} <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadio1">Credit Card</label>
+                    </div> {% endcomment %}
+                    {% comment %} <div class="custom-control custom-radio">
+                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadio2">Debit Card</label>
+                    </div> {% endcomment %}
+                    {% comment %} <div class="form-row">
+                        <div class="col">
+                            <label for="exampleFormControlInput1" id="label">Name on Card:</label>
+                            <input type="text" class="form-control" placeholder="First name">
+                            <small>Full name as displayed on card</small>
+                        </div>
+                        <div class="col">
+                            <label for="exampleFormControlInput1" id="label">Credit Card Number:</label>
+                            <input type="text" class="form-control" placeholder="Last name">
+                        </div>
+                    </div> {% endcomment %}
+                    {% comment %} <div class="form-row">
+                        <div class="col-md-4">
+                            <label for="exampleFormControlInput1" id="label">Expiration:</label>
+                            <input type="text" class="form-control" placeholder="First name">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="exampleFormControlInput1" id="label">CVV:</label>
+                            <input type="text" class="form-control" placeholder="Last name">
+                        </div>
+                    </div> {% endcomment %}
+                    <hr>
+                    <button type="submit" class="btn btn-primary btn-block my-5">Place Order</button>
+                </form>
+           </div>
+           <div class="col-md-5  cart">
+                <table class="table">
+                    <thead class = 'table-head'>
+                        <tr>
+                            <th scope="col">Remove</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Meal</th> <!--coming from the meal model and since its a foreign key in our shopcart its goin to pull price image and quantity-->
+                            <th scope="col">Spice</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">quantity</th>
+                            <th scope="col">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody class ='table-bordered text-center'>
+                        {% if  cart%}
+                            {% for item in cart  %}
+                                <tr>
+                                    <th scope="row">#</th>
+                                    <td><img src="{{item.meal.image.url}}" style="width:3rem;"></td>
+                                    <td>{{item.meal.meal}}</td>
+                                    <td>{{item.how_spicey}}</td>
+                                    {% comment %} <td><input type="number" class="w-25 pl-1" value="1">{{item.Meal.price}}</td> {% endcomment %}
+                                    <td>
+                                        {% if item.meal.discount %}
+                                            <span>{{item.meal.discount|floatformat:2|intcomma}}</span>
+                                        {% else %}
+                                            <span>{{item.meal.price|floatformat:2|intcomma}}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{item.quantity}}</td>
+                                    <td>
+                                        {% if item.meal.discount %}
+                                            <span>{{item.meal.discount|mul:item.quantity|floatformat:2|intcomma}}</span>
+                                        {% else %}
+                                            <span>{{item.meal.price|mul:item.quantity|floatformat:2|intcomma}}</span>
+                                        {% endif %}
+                                        {% comment %} pip install django-mathsfilters in the terminer and ensure that you load it at the top of the cart page and every other page that it is necessary {% endcomment %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+           </div>
+        </div>
+    </div>
+</div> 
+{% endblock content %}
+
+{% block footer %}{% include 'footer.html' %}{% endblock footer %}

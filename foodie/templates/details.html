@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+{% block title %}| Home{% endblock title %}
+
+
+{% block header %}{% include 'header.html' %}{% endblock header %}
+
+
+
+{% block content %}
+ <div class="contents">
+  <div class="container-fluid mt-4 mb-4">
+    <h1 class='subject text-center'>{{details.meal|title}}</h1>
+    <div class="row">
+       <div class="col-12 col-sm-6 col-md-4 col-lg-3 w-25 mt-5">
+         <div class="row mt-3 mb-5 pl-5">
+            <div class="card mt-4" style="width: 16rem;">
+              <img src="{% static '' %}img/fork.png" class="card-img-top" id="image-size"> 
+              <div class="card-body">
+                <p class="card-text text-center">Take your time, be ready to order and enjoy</p>
+              </div>
+            </div>
+         </div>
+         <div class="row  mt-5 pl-5">
+            <div class="card" style="width: 16rem;">
+              <img src="{% static '' %}img/juice.jpg" class="card-img-top" alt="..."> 
+              <div class="card-body">
+                <p class="card-text text-center">Your meal is not completed without having a cup of juice</p>
+              </div>
+            </div>
+         </div>
+       </div>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-6 w-50 mt-5">
+          <div class="card w-100 pr-3">
+            <img src="{{details.image.url}}" class="card-img-top">
+            <div class="card-body text-center">
+              <!--title is used to capitalized-->
+              <h5 class="card-title mb-3 text-info font-weight-bolder">{{details.meal|title}}</h5>
+              <p class="card-text">
+                {% if details.discount %}
+                  <del>{{details.price|floatformat:2|intcomma}}</del>
+                  <span>{{details.discount |floatformat:2|intcomma}}</span>
+                {% else %}
+                  <span>{{details.price |floatformat:2|intcomma}}</span>
+                {% endif %}
+              </p>
+            </div>
+            <form action="{% url  'addtocart'  %}" method="POST"> 
+            {% csrf_token %}
+              <div class="form-group">
+                  <label for="exampleFormControlInput1" class = "text-center">Quantityy:</label>
+                  <input type="number" class="form-control" name="quantity" id="exampleFormControlInput1" value="1" min="{{details.min_order}}" max="{{details.max_order}}">
+                  <input type="hidden" class="form-control" name="mealid" id="exampleFormControlInput1" value="{{details.id}}">
+              </div>
+              
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <h6>Kindly confirm to us how spicy you want each meal to be</h6>
+                  <input type="text" name="how_spicey" id="exampleInputText1" aria-describedby="texthelp">
+                </div>
+              </div>
+              <div class="form-group">
+                  <button type="submit" class="btn btn-primary text-center">Add to Cart</button>
+              </div>
+          </form>
+          </div>
+       </div>
+       <div class="col-12 col-sm-6 col-md-4 col-lg-3 w-25 mt-5">
+          <div class="row mt-5">
+            <div class="card pr-5" style="width: 16rem;">
+              <img src="{% static '' %}img/drink1.jpg" class="card-img-top" alt="..."> 
+              <div class="card-body">
+                <p class="card-text">Some quick example text to build</p>
+              </div>
+            </div>
+            <div class="card mt-5" style="width: 16rem;">
+              <img src="{% static '' %}img/fruit.png" class="card-img-top"> 
+              <div class="card-body">
+                <p class="card-text">Some quick example text to build</p>
+              </div>
+            </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+
+
+ 
+{% endblock content %}
+
+{% block footer %}{% include 'footer.html' %}{% endblock footer %}

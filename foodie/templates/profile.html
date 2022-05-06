@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}|user profile{% endblock title %}
+
+<!--header area-->
+{% block header %}{% include 'header.html' %}{% endblock header %}
+<!--header area done-->
+
+<!--content area-->
+{% block content %}
+
+<!-- profile here -->
+<div class="container-fluid profile-back">
+    <h1>PROFILE</h1>
+    <div class="container profile text-center text-dark font-weight-bold mt-5 mb-5">
+      <div class = "row">
+          <div class = "col-md-6">
+              <img src="{{profile.image.url}}" style = "width: 250px" class="profile-image"></p>
+          </div>
+          <div class = "col-md-6">
+              <h2>Personal information</h2>
+              <p>Username: {{profile.user.username|title}}</p>
+              <p>First name:{{profile.first_name|title}}</p>
+              <p>Last name:{{profile.last_name|title}}</p>
+              <p>Email:{{profile.user.email|title}}</p>
+              <p>Phone:{{profile.user.phone|title}}</p>
+              <p>Address:{{profile.address|title}}</p>
+              <p>State:{{profile.state|title}}</p>
+              <div class="row ml-4">
+                <a href="{% url 'profile_update'  %}"><button class="but">Edit profile</button></a>
+                <a href="" class="ml-1"><button class="but1">Change Password</button></a>
+              </div>
+           </div>
+      </div>
+    </div>
+  </div>
+  <!-- profile here done -->
+
+
+{% endblock content %}
+<!--content area done-->
+
+<!--location area-->
+{% block location %}{% include "location.html" %}{% endblock location %}
+<!--location area done-->
+
+<!--footer area-->
+{% block footer %}{% include "footer.html" %}{% endblock footer %}
+<!--footer area done-->

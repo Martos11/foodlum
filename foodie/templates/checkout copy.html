@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% block header %}{% include 'header.html' %}{% endblock header %}
+
+{% block content %}
+<!-- checkout section -->
+<div class="container-fluid checkout my-5">
+    <h3 class="pb-3 pl-5">Billing Address</h3>
+    <div class="container">
+      <div class="row">
+            <div class="col-md-8 check-form">
+                <form class="checkout-form">
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="exampleFormControlInput1" id="label">First Name:</label>
+                            <input type="text" class="form-control" value ='{{profile.first_name}}' placeholder="First name">
+                        </div>
+                        <div class="col">
+                            <label for="exampleFormControlInput1" id="label">Last Name:</label>
+                            <input type="text" class="form-control" value ='{{profile.last_name}}' placeholder="Last name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1" id="label">Username:</label>
+                        <input type="username" class="form-control" value = '{{profile.user.username|title}}' id="exampleFormControlInput1" placeholder="Enter your Username">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1" id="label">Email:</label>
+                        <input type="username" class="form-control" value ='{{profile.user.email|title}}' id="exampleFormControlInput1" placeholder="Enter your Username">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1" id="label">Address:</label>
+                        <input type="username" class="form-control" value='{{profile.address|title}}' id="exampleFormControlInput1" placeholder="Enter your Username">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="inputState">Country</label>
+                            <select id="inputState" class="form-control">
+                            <option selected>Nigeria</option>
+                            <option>Ghana</option>
+                            <option>Europe</option>
+                            <option>Australia</option>
+                            <option>Germany</option>
+                            <option>America</option>
+                            <option>Dubai</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputState">State</label>
+                        <select id="inputState" class="form-control" value='{{profile.state|title}}'>
+                        <option selected>Lagos</option>
+                        <option>Ogun</option>
+                        <option>Abeokuta</option>
+                        <option>Ondo</option>
+                        <option>Oyo</option>
+                        <option>Osun</option>
+                        <option>Akwa Ibom</option>
+                        <option>Benue</option>
+                        <option>Port harcourt</option>
+                        <option>Akwa Ibom</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputZip">Zip</label>
+                        <input type="text" class="form-control" id="inputZip">
+                    </div>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck1">
+                        <label class="form-check-label" for="gridCheck1">
+                            Shipping address is the same as my billing address
+                        </label>
+                    </div>
+                    <hr>
+                    <h5>Payment</h5>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadio1">Credit Card</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadio2">Debit Card</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="exampleFormControlInput1" id="label">Name on Card:</label>
+                            <input type="text" class="form-control" placeholder="First name">
+                            <small>Full name as displayed on card</small>
+                        </div>
+                        <div class="col">
+                            <label for="exampleFormControlInput1" id="label">Credit Card Number:</label>
+                            <input type="text" class="form-control" placeholder="Last name">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <label for="exampleFormControlInput1" id="label">Expiration:</label>
+                            <input type="text" class="form-control" placeholder="First name">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="exampleFormControlInput1" id="label">CVV:</label>
+                            <input type="text" class="form-control" placeholder="Last name">
+                        </div>
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-primary btn-block my-5">Continue to checkout</button>
+                </form>
+            </div>
+            <div class="col-md 4 cart">
+                <h4 class="d-flex justify-content-between align-item-center">
+                    <span class="text-muted">Your Cart</span>
+                    <span class="badge bg-secondary rounded-pill">3</span>
+                </h4>
+                <div class="check-cart">
+                    
+                    <li class="list-group-item d-flex justify-content-between">
+                        <div class="">
+                            <h6>Product name</h6>
+                            <span class="text-muted">Breif description</span>
+                        </div>
+                        <span class="text-muted">Rs 500</span>
+                    </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <div class="">
+                                <h6>Product name</h6>
+                                <span class="text-muted">Breif description</span>
+                            </div>
+                            <span class="text-muted">Rs 500</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <div class="">
+                                <h6>Second Product</h6>
+                                <span class="text-muted">Breif description</span>
+                            </div>
+                            <span class="text-muted">Rs 400</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <div class="">
+                                <h6>Third Product</h6>
+                                <span class="text-muted">Breif description</span>
+                            </div>
+                            <span class="text-muted">Rs 600</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <div class="">
+                                <h6 class="text-success">Promo Code</h6>
+                                <span class="text-muted">Sale 10</span>
+                            </div>
+                            <span class="text-muted">Rs 200</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <div class="">
+                                <h6 class="">Total(Rs)</h6>
+                            </div>
+                            <span class="text-muted">Rs 1300</span>
+                        </li>
+                  </div>
+              </div>
+       </div>
+    </div>
+
+</div>
+<!-- checkout section done -->
+<h4 class="d-flex justify-content-between align-item-center">
+    <span class="text-muted">Your Cart</span>
+    <span class="badge bg-secondary rounded-pill">3</span>
+    </h4>
+  
+{% endblock content %}
+
+{% block footer %}{% include 'footer.html' %}{% endblock footer %}

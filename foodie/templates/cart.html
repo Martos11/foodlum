@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load mathfilters %}
+
+
+
+{% block header %}{% include 'header.html' %}{% endblock header %}
+
+{% block content %}
+<!-- add to cart -->
+<div class="container-fluid cart-table">
+    <div class='container car-table'>
+      <table class="table">
+            <thead class = 'table-head'>
+                <tr>
+                    <th scope="col">Remove</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Meal</th> <!--coming from the meal model and since its a foreign key in our shopcart its goin to pull price image and quantity-->
+                    <th scope="col">Spice</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">quantity</th>
+                    <th scope="col">Amount</th>
+                </tr>
+            </thead>
+            <tbody class ='table-bordered text-center'>
+                {% if  cart%}
+                    {% for item in cart  %}
+                        <tr>
+                            <th scope="row">
+                                <form action="{% url 'remove_item'  %}" method="POST">
+                                {% csrf_token %}
+                                    <input type="hidden" name="deleteitem" value="{{item.id}}">
+                                    <button type="submit" class ="btn cartbtn">#</button>
+                                </form>
+                            </th>
+                            <td><img src="{{item.meal.image.url}}" style="width:3rem;"></td>
+                            <td>{{item.meal.meal}}</td>
+                            <td>{{item.how_spicey}}</td>
+                            {% comment %} <td><input type="number" class="w-25 pl-1" value="1">{{item.Meal.price}}</td> {% endcomment %}
+                            <td>
+                                {% if item.meal.discount %}
+                                    <span>{{item.meal.discount|floatformat:2|intcomma}}</span>
+                                {% else %}
+                                    <span>{{item.meal.price|floatformat:2|intcomma}}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{item.quantity}}</td>
+                            <td>
+                                {% if item.meal.discount %}
+                                    <span>{{item.meal.discount|mul:item.quantity|floatformat:2|intcomma}}</span>
+                                {% else %}
+                                    <span>{{item.meal.price|mul:item.quantity|floatformat:2|intcomma}}</span>
+                                {% endif %}
+                                {% comment %} pip install django-mathsfilters in the terminer and ensure that you load it at the top of the cart page and every other page that it is necessary {% endcomment %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+
+            </tbody>
+        </table>
+        <!-- second table -->
+        <div class="container my-5">
+            <div class="row">
+            <div class="col-md-6 col-lg-6 col-12 mb-4">
+                <table class="table ">
+                    <thead class = 'table-head'>
+                        <tr>
+                        <th scope="col">COUPON</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-bordered">
+                        <tr>
+                        <th scope="row">Enter your coupon code if you have one</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <label for="inputPassword2" class="sr-only">Password</label>
+                                            <input type="password" class="form-control" id="inputPassword2" placeholder="Coupon Code">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mx-sm-3 mb-2">
+                                        <button type="submit" class="btn btn-dark mb-2">Apply Coupon</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                   </tbody>
+               </table>
+          </div>
+          <!-- flexed table -->
+          <div class="col-md-6 col-md-6 col-lg-6 col-12">
+                <table class="table table-borderless">
+                    <thead class="table-head">
+                        <tr class="table-bordered">
+                        <th scope="col">cart total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-bordered">
+                        <tr class="d-flex justify-content-between">
+                            <td>SUBTOTAL:</td>
+                            <td>{{subtotal|floatformat:2|intcomma}}</td>
+                        </tr>
+                        <tr class="d-flex justify-content-between">
+                            <td><small>VAT (at 7.5%):</small></td>
+                            <td>{{vat|floatformat:2|intcomma}}</td>
+                        </tr>
+                        <tr class="d-flex justify-content-between border-top border-dark">
+                            <td>Total</td>
+                            <td><b>{{total|floatformat:2|intcomma}}</b></td> 
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="submit" class="btn btn-dark mb-2 table-button"><a href="{% url 'checkout'  %}">Proceed to checkout</a></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- add to cart done -->
+{% endblock content %}
+
+{% comment %} <!--location area-->
+{% block location %}{% include "location.html" %}{% endblock location %}
+<!--location area done-->
+
+<!--footer area-->
+{% block footer %}{% include "footer.html" %}{% endblock footer %}
+<!--footer area done--> {% endcomment %}

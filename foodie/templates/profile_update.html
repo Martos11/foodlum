@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}|user profile{% endblock title %}
+
+<!--header area-->
+{% block header %}{% include 'header.html' %}{% endblock header %}
+<!--header area done-->
+
+<!--content area-->
+{% block content %}
+
+<!-- profile update here -->
+<div class="container-fluid profile-bac">
+    <h1 class="text-center pt-5">PROFILE</h1>
+    <div class="container d-flex profile_update text-center text-dark font-weight-bold ">
+      <div class = "row">
+          <div class = "col-md-6 profileup-image">
+              <img src="{{load_profile.image.url}}" style = "width: 250px" class="profile-image"></p>
+              <p>{{profile.user.username|title}}</p>
+          </div>
+          <div class = "col-md-6">
+              <form action="{% url 'profile_update' %}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+                <h4>Username: <span>{{load_profile.user.username}}</span></h4> 
+                {{form.as_p}}
+                <button type="submit" class="btn btn-warning">Update</button>   
+              </form>
+                {% comment %} <div class="form-group" id="profile-form">
+                    <label for="exampleFormControlInput1" id="label">First Name:</label>
+                    <input type="firstname" class="form-control" name = 'first_name' id="exampleFormControlInput1" placeholder="Enter your First Name">
+                </div>
+                <div class="form-group" id="profile-form">
+                    <label for="exampleFormControlInput1" id="label">Last Name:</label>
+                    <input type="lastname" class="form-control" name = 'last_name'  id="exampleFormControlInput1" placeholder="Enter your Last Name">
+                </div>
+                <div class="form-group" id="profile-form">
+                    <label for="exampleFormControlInput1" id="label">Phone:</label>
+                    <input type="username" class="form-control" name = 'username' id="exampleFormControlInput1" placeholder="Enter your Username">
+                </div>
+                <div class="form-group" id="profile-form">
+                    <label for="exampleFormControlInput1" id="label">Address:</label>
+                    <input type="email" class="form-control" name = 'email' id="exampleFormControlInput1" placeholder="Enter your valid Email">
+                </div>
+                <div class="form-group" id="profile-form">
+                    <label for="exampleFormControlInput1" id="label">State:</label>
+                    <input type="text" class="form-control" name = 'phone' id="exampleFormControlInput1" placeholder="Enter your valid Phone number">
+                </div>
+                <div id="profile-form">
+                    <label for="exampleFormControlInput1" id="label" class="ml-4">Image:</label>
+                    <img src=" {{load_profile.image.url}}">
+                </div> {% endcomment %}
+          </div>
+      </div>
+    </div>
+</div>
+  
+  <!-- profile update here done -->
+
+
+{% endblock content %}
+<!--content area done-->
+
+<!--location area-->
+{% block location %}{% include "location.html" %}{% endblock location %}
+<!--location area done-->
+
+<!--footer area-->
+{% block footer %}{% include "footer.html" %}{% endblock footer %}
+<!--footer area done-->
